@@ -1,5 +1,6 @@
 const express = require('express')
-const {Contact, addSchema, updateFavoriteSchema} = require("../../models/contact");
+const {Contact} = require("../../models/contact");
+const {addSchema, updateFavoriteSchema} = require("../../models/schemas");
 const isValidId = require("../../middlewares/isValidId");
 
 const router = express.Router();
@@ -59,6 +60,10 @@ router.put('/:id', isValidId, async (req, res, next) => {
 
 router.patch('/:id/favorite', isValidId, async (req, res, next) => {
   try {
+    const {error} = updateFavoriteSchema.validate(req.body);
+    if(error) {
+      throw HttpError(400, "missing required name field");
+    }
       const {id} = req.params;
     const result = await Contact.findByIdAndUpdate(id, req.body, {new: true});
     if(!result) {
