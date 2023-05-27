@@ -6,6 +6,7 @@ const User = require("../../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const authentication = require("../../middlewares/authentication");
 
 const {SECRET_KEY} = process.env;
 
@@ -47,7 +48,7 @@ router.post("/users/login", validateBody(loginSchema), async (req, res, next) =>
         id: user._id,
     }
     const token = jwt.sign(payload, SECRET_KEY, {expiresIn: "23h"});
-
+    await User.findByIdAndUpdate(user._id, {token})
     res.status(200).json({
         token,
         user: {
@@ -56,5 +57,26 @@ router.post("/users/login", validateBody(loginSchema), async (req, res, next) =>
     }
     })
 })
+
+router.post("/users/current", authentication, async (req, res, next) => {
+    const {email, subscription} = req.user;
+
+    res.status(200).json({
+        email,
+        subscription,
+    })
+})
+
+router.post("/users/logout", validateBody(loginSchema), async (req, res, next) => {
+    const {_id} = req.user;
+
+    await User.findByIdAndUpdate(_id, {token: ""});
+
+    res.status(204).json({
+        message: "No Content"
+    })
+})
+
+
 
 module.exports = router;
