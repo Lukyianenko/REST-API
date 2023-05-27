@@ -20,6 +20,7 @@ const userSchema = new Schema ({
         enum: ["starter", "pro", "business"],
         default: "starter"
       },
+      token: String,
 }, {versionKey: false, timestaps: true});
 
 userSchema.post("save", handleMongooseError);

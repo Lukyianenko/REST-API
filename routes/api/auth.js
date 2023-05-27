@@ -48,8 +48,12 @@ router.post("/users/login", validateBody(loginSchema), async (req, res, next) =>
     }
     const token = jwt.sign(payload, SECRET_KEY, {expiresIn: "23h"});
 
-    res.json({
+    res.status(200).json({
         token,
+        user: {
+            email: user.email,
+            subscription: user.subscription,
+    }
     })
 })
 
