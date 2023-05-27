@@ -67,7 +67,7 @@ router.post("/users/current", authentication, async (req, res, next) => {
     })
 })
 
-router.post("/users/logout", validateBody(loginSchema), async (req, res, next) => {
+router.post("/users/logout", authentication, async (req, res, next) => {
     const {_id} = req.user;
 
     await User.findByIdAndUpdate(_id, {token: ""});

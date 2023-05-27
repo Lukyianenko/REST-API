@@ -4,8 +4,8 @@ const {SECRET_KEY} = process.env;
 const User = require("../models/user");
 
 const authentication = async (req, res, next) => {
-    const {autorization = ""} = req.headers;
-    const [bearer, token] = autorization.split(" ");
+    const {authorization = ""} = req.headers;
+    const [bearer, token] = authorization.split(" ");
     if(bearer !== "Bearer") {
         next(HttpError(401, "Not authorized"))
     }
