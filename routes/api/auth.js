@@ -1,11 +1,6 @@
 const express = require("express");
-const {HttpError} = require("../../helpers");
 const validateBody = require("../../middlewares/validateBody");
 const { registerSchema, loginSchema } = require("../../models/schemas");
-const User = require("../../models/user");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
 const authentication = require("../../middlewares/authentication");
 const register = require("../../controllers/auth/register");
 const login = require("../../controllers/auth/login");
@@ -13,6 +8,8 @@ const current = require("../../controllers/auth/current");
 const logout = require("../../controllers/auth/logout");
 
 const {SECRET_KEY} = process.env;
+
+
 
 const router = express.Router();
 

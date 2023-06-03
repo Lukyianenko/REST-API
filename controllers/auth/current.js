@@ -1,3 +1,5 @@
+equire("dotenv").config();
+
 const current = async (req, res, next) => {
     const {email, subscription} = req.user;
 

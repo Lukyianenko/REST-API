@@ -1,3 +1,9 @@
+const User = require("../../models/user");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const {HttpError} = require("../../helpers");
+equire("dotenv").config();
+
 const login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findOne({email});
