@@ -1,5 +1,5 @@
 const User = require("../../models/user");
-equire("dotenv").config();
+require("dotenv").config();
 
 const logout = async (req, res, next) => {
     const {_id} = req.user;

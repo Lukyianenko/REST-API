@@ -2,7 +2,7 @@ const gravatar = require("gravatar");
 const User = require("../../models/user");
 const bcrypt = require("bcrypt");
 const {HttpError} = require("../../helpers");
-equire("dotenv").config();
+require("dotenv").config();
 
 const register = async (req, res, next) => {
     try {
@@ -13,9 +13,10 @@ const register = async (req, res, next) => {
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
-    const avatarUrl = gravatar.url(email);
+    const avatarURL = gravatar.url(email);
+    console.log(avatarURL)
 
-    const newUser = await User.create({...req.body, password: hashPassword, avatarUrl});
+    const newUser = await User.create({...req.body, password: hashPassword, avatarURL});
 
     res.status(201).json({
         email: newUser.email,

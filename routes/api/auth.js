@@ -6,10 +6,8 @@ const register = require("../../controllers/auth/register");
 const login = require("../../controllers/auth/login");
 const current = require("../../controllers/auth/current");
 const logout = require("../../controllers/auth/logout");
-
-const {SECRET_KEY} = process.env;
-
-
+const upload = require("../../middlewares/upload");
+const updateAvatar = require("../../controllers/auth/updateAvatar");
 
 const router = express.Router();
 
@@ -20,5 +18,7 @@ router.post("/users/login", validateBody(loginSchema), login);
 router.post("/users/current", authentication, current);
 
 router.post("/users/logout", authentication, logout);
+
+router.patch("/users/avatars", authentication, upload.single("avatar"), updateAvatar);
 
 module.exports = router;

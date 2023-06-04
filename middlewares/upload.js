@@ -14,4 +14,4 @@ const upload = multer({
     storage: multerConfig
   })
 
-moduke.exports = upload;
+module.exports = upload;
