@@ -23,13 +23,16 @@ const registerSchema = Joi.object({
 const loginSchema = Joi.object({
     email: Joi.string().pattern(emailRegex).required(),
     password: Joi.string().min(6).required(),
-    
 })
 
+const emailSchems = Joi.object({
+    email: Joi.string().pattern(emailRegex).required(),
+})
 
 module.exports = {
     addSchema,
     updateFavoriteSchema,
+    emailSchems,
     registerSchema,
     loginSchema,
 }
